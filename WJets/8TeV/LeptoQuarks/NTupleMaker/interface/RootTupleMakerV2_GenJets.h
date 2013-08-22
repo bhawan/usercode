@@ -12,7 +12,9 @@ class RootTupleMakerV2_GenJets : public edm::EDProducer {
  private:
   void produce( edm::Event &, const edm::EventSetup & );
   const edm::InputTag   inputTag;
-  const std::string     prefix,suffix;
+  const edm::InputTag   inputTagP;
+  
+const std::string     prefix,suffix;
   const unsigned int    maxSize;
 };
 

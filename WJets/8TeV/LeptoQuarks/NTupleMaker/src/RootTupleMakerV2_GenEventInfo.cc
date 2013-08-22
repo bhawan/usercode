@@ -24,7 +24,7 @@ RootTupleMakerV2_GenEventInfo::RootTupleMakerV2_GenEventInfo(const edm::Paramete
   produces <std::vector<double> > ( "PDFNNPDFWeights" );
   produces <std::vector<int> > ( "PileUpInteractions");
   produces <std::vector<int> > ( "PileUpOriginBX" ) ;
-  produces <std::vector<float> > ( "PileUpInteractionsTrue" );
+  produces <std::vector<double> > ( "PileUpInteractionsTrue" );
   produces <double>       ( "Weight" );
 //   produces <double>       ( "AlphaQCD" );
 //   produces <double>       ( "AlphaQED" );
@@ -39,7 +39,7 @@ produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
   std::auto_ptr<std::vector<double> >  pdfMSTWWeights  ( new std::vector<double>()  );
   std::auto_ptr<std::vector<double> >  pdfNNPDFWeights  ( new std::vector<double>()  );
   std::auto_ptr<std::vector<int >  >   Number_interactions  ( new std::vector<int>() );
-  std::auto_ptr<std::vector<float> >   trueNumberInteractions ( new std::vector<float>() );
+  std::auto_ptr<std::vector<double> >   trueNumberInteractions ( new std::vector<double>() );
   std::auto_ptr<std::vector<int >  >   OriginBX( new std::vector<int>() );
   std::auto_ptr<double >               weight ( new double() );
 //   std::auto_ptr<double >               alphaQCD ( new double() );

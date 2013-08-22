@@ -27,149 +27,151 @@ RootTupleMakerV2_Taus::RootTupleMakerV2_Taus(const edm::ParameterSet& iConfig) :
   isSCTau     (iConfig.getParameter<bool>("isSCTau")),
   isHPSTau    (iConfig.getParameter<bool>("isHPSTau"))
 {
-  produces <std::vector<double> > ( prefix + "Eta"                              + suffix );
-  produces <std::vector<double> > ( prefix + "Phi"                              + suffix );
-  produces <std::vector<double> > ( prefix + "Pt"                               + suffix );
-  produces <std::vector<double> > ( prefix + "Et"                               + suffix );
+/*  produces <std::vector<float> > ( prefix + "Eta"                              + suffix );
+  produces <std::vector<float> > ( prefix + "Phi"                              + suffix );
+  produces <std::vector<float> > ( prefix + "Pt"                               + suffix );
+  produces <std::vector<float> > ( prefix + "Et"                               + suffix );
   produces <std::vector<int> >    ( prefix + "Charge"                           + suffix );
   produces <std::vector<int> >    ( prefix + "IsPFTau"                          + suffix );
   produces <std::vector<int> >    ( prefix + "IsCaloTau"                        + suffix );
   produces <std::vector<int> >    ( prefix + "DecayMode"                        + suffix );
-  produces <std::vector<double> > ( prefix + "EmFraction"                       + suffix );
-  produces <std::vector<double> > ( prefix + "Hcal3x3OverPLead"                 + suffix );
-  produces <std::vector<double> > ( prefix + "HcalMaxOverPLead"                 + suffix );
-  produces <std::vector<double> > ( prefix + "HcalTotOverPLead"                 + suffix );
-  produces <std::vector<double> > ( prefix + "IsolationPFChargedHadrCandsPtSum" + suffix );
-  produces <std::vector<double> > ( prefix + "IsolationPFGammaCandsEtSum"       + suffix );
-  produces <std::vector<double> > ( prefix + "LeadPFChargedHadrCandsignedSipt"  + suffix );
-  produces <std::vector<double> > ( prefix + "EtaLeadCharged"                   + suffix );
-  produces <std::vector<double> > ( prefix + "PhiLeadCharged"                   + suffix );
-  produces <std::vector<double> > ( prefix + "PtLeadCharged"                    + suffix );
-  produces <std::vector<double> > ( prefix + "PhiphiMoment"                     + suffix );
-  produces <std::vector<double> > ( prefix + "EtaetaMoment"                     + suffix );
-  produces <std::vector<double> > ( prefix + "EtaphiMoment"                     + suffix );
-  produces <std::vector<double> > ( prefix + "EcalStripSumEOverPLead"           + suffix ); 
-  produces <std::vector<double> > ( prefix + "BremsRecoveryEOverPLead"          + suffix );
-  produces <std::vector<double> > ( prefix + "MaximumHCALPFClusterEt"           + suffix ); 
-  produces <std::vector<double> > ( prefix + "MatchedGenParticlePt"             + suffix ); 
-  produces <std::vector<double> > ( prefix + "MatchedGenParticleEta"            + suffix ); 
-  produces <std::vector<double> > ( prefix + "MatchedGenParticlePhi"            + suffix ); 
-  produces <std::vector<double> > ( prefix + "MatchedGenJetPt"                  + suffix ); 
-  produces <std::vector<double> > ( prefix + "MatchedGenJetEta"                 + suffix ); 
-  produces <std::vector<double> > ( prefix + "MatchedGenJetPhi"                 + suffix ); 
-  //
+  produces <std::vector<float> > ( prefix + "EmFraction"                       + suffix );
+  produces <std::vector<float> > ( prefix + "Hcal3x3OverPLead"                 + suffix );
+  produces <std::vector<float> > ( prefix + "HcalMaxOverPLead"                 + suffix );
+  produces <std::vector<float> > ( prefix + "HcalTotOverPLead"                 + suffix );
+  produces <std::vector<float> > ( prefix + "IsolationPFChargedHadrCandsPtSum" + suffix );
+  produces <std::vector<float> > ( prefix + "IsolationPFGammaCandsEtSum"       + suffix );
+  produces <std::vector<float> > ( prefix + "LeadPFChargedHadrCandsignedSipt"  + suffix );
+  produces <std::vector<float> > ( prefix + "EtaLeadCharged"                   + suffix );
+  produces <std::vector<float> > ( prefix + "PhiLeadCharged"                   + suffix );
+  produces <std::vector<float> > ( prefix + "PtLeadCharged"                    + suffix );
+  produces <std::vector<float> > ( prefix + "PhiphiMoment"                     + suffix );
+  produces <std::vector<float> > ( prefix + "EtaetaMoment"                     + suffix );
+  produces <std::vector<float> > ( prefix + "EtaphiMoment"                     + suffix );
+  produces <std::vector<float> > ( prefix + "EcalStripSumEOverPLead"           + suffix ); 
+  produces <std::vector<float> > ( prefix + "BremsRecoveryEOverPLead"          + suffix );
+  produces <std::vector<float> > ( prefix + "MaximumHCALPFClusterEt"           + suffix ); 
+  produces <std::vector<float> > ( prefix + "MatchedGenParticlePt"             + suffix ); 
+  produces <std::vector<float> > ( prefix + "MatchedGenParticleEta"            + suffix ); 
+  produces <std::vector<float> > ( prefix + "MatchedGenParticlePhi"            + suffix ); 
+  produces <std::vector<float> > ( prefix + "MatchedGenJetPt"                  + suffix ); 
+  produces <std::vector<float> > ( prefix + "MatchedGenJetEta"                 + suffix ); 
+  produces <std::vector<float> > ( prefix + "MatchedGenJetPhi"                 + suffix ); 
+*/ 
+ //
   // ShrinkingCone PFTau Specific
   if(isSCTau){
     //shrinkingCone PFTau Discriminators (SCTau)
-    produces <std::vector<double> >    ( prefix + "LeadingTrackFindingDiscr"            + suffix );
-    produces <std::vector<double> >    ( prefix + "LeadingTrackPtCutDiscr"              + suffix );
-    produces <std::vector<double> >    ( prefix + "LeadingPionPtCutDiscr"               + suffix );
-    produces <std::vector<double> >    ( prefix + "IsolationDiscr"                      + suffix );
-    produces <std::vector<double> >    ( prefix + "TrackIsolationDiscr"                 + suffix );
-    produces <std::vector<double> >    ( prefix + "EcalIsolationDiscr"                  + suffix );
-    produces <std::vector<double> >    ( prefix + "IsolationUsingLeadingPionDiscr"      + suffix );
-    produces <std::vector<double> >    ( prefix + "TrackIsolationUsingLeadingPionDiscr" + suffix );
-    produces <std::vector<double> >    ( prefix + "EcalIsolationUsingLeadingPionDiscr"  + suffix );
-    produces <std::vector<double> >    ( prefix + "AgainstElectronDiscr"                + suffix );
-    produces <std::vector<double> >    ( prefix + "AgainstMuonDiscr"                    + suffix );
-    produces <std::vector<double> >    ( prefix + "TaNCDiscr"                           + suffix );
-    produces <std::vector<double> >    ( prefix + "TaNCfrOnePercentDiscr"               + suffix );
-    produces <std::vector<double> >    ( prefix + "TaNCfrHalfPercentDiscr"              + suffix );
-    produces <std::vector<double> >    ( prefix + "TaNCfrQuarterPercentDiscr"           + suffix );
-    produces <std::vector<double> >    ( prefix + "TaNCfrTenthPercentDiscr"             + suffix );
+  /*  produces <std::vector<float> >    ( prefix + "LeadingTrackFindingDiscr"            + suffix );
+    produces <std::vector<float> >    ( prefix + "LeadingTrackPtCutDiscr"              + suffix );
+    produces <std::vector<float> >    ( prefix + "LeadingPionPtCutDiscr"               + suffix );
+    produces <std::vector<float> >    ( prefix + "IsolationDiscr"                      + suffix );
+    produces <std::vector<float> >    ( prefix + "TrackIsolationDiscr"                 + suffix );
+    produces <std::vector<float> >    ( prefix + "EcalIsolationDiscr"                  + suffix );
+    produces <std::vector<float> >    ( prefix + "IsolationUsingLeadingPionDiscr"      + suffix );
+    produces <std::vector<float> >    ( prefix + "TrackIsolationUsingLeadingPionDiscr" + suffix );
+    produces <std::vector<float> >    ( prefix + "EcalIsolationUsingLeadingPionDiscr"  + suffix );
+    produces <std::vector<float> >    ( prefix + "AgainstElectronDiscr"                + suffix );
+    produces <std::vector<float> >    ( prefix + "AgainstMuonDiscr"                    + suffix );
+    produces <std::vector<float> >    ( prefix + "TaNCDiscr"                           + suffix );
+    produces <std::vector<float> >    ( prefix + "TaNCfrOnePercentDiscr"               + suffix );
+    produces <std::vector<float> >    ( prefix + "TaNCfrHalfPercentDiscr"              + suffix );
+    produces <std::vector<float> >    ( prefix + "TaNCfrQuarterPercentDiscr"           + suffix );
+    produces <std::vector<float> >    ( prefix + "TaNCfrTenthPercentDiscr"             + suffix );
+*/
   }
   //
   // HPS PFTau Specific
   if(isHPSTau){
     //hps PFTau Discriminators (HPSTau)
-    produces <std::vector<double> >    ( prefix + "DecayModeFindingDiscr"  + suffix );
+/*   produces <std::vector<float> >    ( prefix + "DecayModeFindingDiscr"  + suffix );
     //
-    produces <std::vector<double> >    ( prefix + "AgainstElectronLooseDiscr"        + suffix );
-    produces <std::vector<double> >    ( prefix + "AgainstElectronMediumDiscr"       + suffix );
-    produces <std::vector<double> >    ( prefix + "AgainstElectronTightDiscr"        + suffix );
-    produces <std::vector<double> >    ( prefix + "AgainstElectronMVADiscr"          + suffix );
-    produces <std::vector<double> >    ( prefix + "AgainstElectronMVA2rawDiscr"      + suffix );
-    produces <std::vector<double> >    ( prefix + "AgainstElectronMVA2categoryDiscr" + suffix );
-    produces <std::vector<double> >    ( prefix + "AgainstElectronVLooseMVA2Discr"   + suffix );
-    produces <std::vector<double> >    ( prefix + "AgainstElectronLooseMVA2Discr"    + suffix );
-    produces <std::vector<double> >    ( prefix + "AgainstElectronMediumMVA2Discr"   + suffix );
-    produces <std::vector<double> >    ( prefix + "AgainstElectronTightMVA2Discr"    + suffix );
-    produces <std::vector<double> >    ( prefix + "AgainstElectronMVA3rawDiscr"      + suffix );
-    produces <std::vector<double> >    ( prefix + "AgainstElectronMVA3categoryDiscr" + suffix );
-    produces <std::vector<double> >    ( prefix + "AgainstElectronLooseMVA3Discr"    + suffix );
-    produces <std::vector<double> >    ( prefix + "AgainstElectronMediumMVA3Discr"   + suffix );
-    produces <std::vector<double> >    ( prefix + "AgainstElectronTightMVA3Discr"    + suffix );
-    produces <std::vector<double> >    ( prefix + "AgainstElectronVTightMVA3Discr"   + suffix );
-    produces <std::vector<double> >    ( prefix + "AgainstElectronDeadECALDiscr"     + suffix );
+    produces <std::vector<float> >    ( prefix + "AgainstElectronLooseDiscr"        + suffix );
+    produces <std::vector<float> >    ( prefix + "AgainstElectronMediumDiscr"       + suffix );
+    produces <std::vector<float> >    ( prefix + "AgainstElectronTightDiscr"        + suffix );
+    produces <std::vector<float> >    ( prefix + "AgainstElectronMVADiscr"          + suffix );
+    produces <std::vector<float> >    ( prefix + "AgainstElectronMVA2rawDiscr"      + suffix );
+    produces <std::vector<float> >    ( prefix + "AgainstElectronMVA2categoryDiscr" + suffix );
+    produces <std::vector<float> >    ( prefix + "AgainstElectronVLooseMVA2Discr"   + suffix );
+    produces <std::vector<float> >    ( prefix + "AgainstElectronLooseMVA2Discr"    + suffix );
+    produces <std::vector<float> >    ( prefix + "AgainstElectronMediumMVA2Discr"   + suffix );
+    produces <std::vector<float> >    ( prefix + "AgainstElectronTightMVA2Discr"    + suffix );
+    produces <std::vector<float> >    ( prefix + "AgainstElectronMVA3rawDiscr"      + suffix );
+    produces <std::vector<float> >    ( prefix + "AgainstElectronMVA3categoryDiscr" + suffix );
+    produces <std::vector<float> >    ( prefix + "AgainstElectronLooseMVA3Discr"    + suffix );
+    produces <std::vector<float> >    ( prefix + "AgainstElectronMediumMVA3Discr"   + suffix );
+    produces <std::vector<float> >    ( prefix + "AgainstElectronTightMVA3Discr"    + suffix );
+    produces <std::vector<float> >    ( prefix + "AgainstElectronVTightMVA3Discr"   + suffix );
+    produces <std::vector<float> >    ( prefix + "AgainstElectronDeadECALDiscr"     + suffix );
     //
-    produces <std::vector<double> >    ( prefix + "AgainstMuonLooseDiscr"   + suffix );
-    produces <std::vector<double> >    ( prefix + "AgainstMuonMediumDiscr"  + suffix );
-    produces <std::vector<double> >    ( prefix + "AgainstMuonTightDiscr"   + suffix );
-    produces <std::vector<double> >    ( prefix + "AgainstMuonLoose2Discr"  + suffix );
-    produces <std::vector<double> >    ( prefix + "AgainstMuonMedium2Discr" + suffix );
-    produces <std::vector<double> >    ( prefix + "AgainstMuonTight2Discr"  + suffix );
+    produces <std::vector<float> >    ( prefix + "AgainstMuonLooseDiscr"   + suffix );
+    produces <std::vector<float> >    ( prefix + "AgainstMuonMediumDiscr"  + suffix );
+    produces <std::vector<float> >    ( prefix + "AgainstMuonTightDiscr"   + suffix );
+    produces <std::vector<float> >    ( prefix + "AgainstMuonLoose2Discr"  + suffix );
+    produces <std::vector<float> >    ( prefix + "AgainstMuonMedium2Discr" + suffix );
+    produces <std::vector<float> >    ( prefix + "AgainstMuonTight2Discr"  + suffix );
     //
-    produces <std::vector<double> >    ( prefix + "VLooseIsolationDiscr"                           + suffix );
-    produces <std::vector<double> >    ( prefix + "LooseIsolationDiscr"                            + suffix );
-    produces <std::vector<double> >    ( prefix + "MediumIsolationDiscr"                           + suffix );
-    produces <std::vector<double> >    ( prefix + "TightIsolationDiscr"                            + suffix );
-    produces <std::vector<double> >    ( prefix + "VLooseIsolationDeltaBetaCorrDiscr"              + suffix );
-    produces <std::vector<double> >    ( prefix + "LooseIsolationDeltaBetaCorrDiscr"               + suffix );
-    produces <std::vector<double> >    ( prefix + "MediumIsolationDeltaBetaCorrDiscr"              + suffix );
-    produces <std::vector<double> >    ( prefix + "TightIsolationDeltaBetaCorrDiscr"               + suffix );
-    produces <std::vector<double> >    ( prefix + "VLooseCombinedIsolationDeltaBetaCorrDiscr"      + suffix );
-    produces <std::vector<double> >    ( prefix + "LooseCombinedIsolationDeltaBetaCorrDiscr"       + suffix );
-    produces <std::vector<double> >    ( prefix + "MediumCombinedIsolationDeltaBetaCorrDiscr"      + suffix );
-    produces <std::vector<double> >    ( prefix + "TightCombinedIsolationDeltaBetaCorrDiscr"       + suffix );
-    produces <std::vector<double> >    ( prefix + "CombinedIsolationDeltaBetaCorr3HitsDiscr"       + suffix );
-    produces <std::vector<double> >    ( prefix + "LooseCombinedIsolationDeltaBetaCorr3HitsDiscr"  + suffix );
-    produces <std::vector<double> >    ( prefix + "MediumCombinedIsolationDeltaBetaCorr3HitsDiscr" + suffix );
-    produces <std::vector<double> >    ( prefix + "TightCombinedIsolationDeltaBetaCorr3HitsDiscr"  + suffix );
-    produces <std::vector<double> >    ( prefix + "IsolationMVArawDiscr"                           + suffix );
-    produces <std::vector<double> >    ( prefix + "LooseIsolationMVADiscr"                         + suffix );
-    produces <std::vector<double> >    ( prefix + "MediumIsolationMVADiscr"                        + suffix );
-    produces <std::vector<double> >    ( prefix + "TightIsolationMVADiscr"                         + suffix );
-    produces <std::vector<double> >    ( prefix + "LooseIsolationMVA2Discr"                        + suffix );
-    produces <std::vector<double> >    ( prefix + "MediumIsolationMVA2Discr"                       + suffix );
-    produces <std::vector<double> >    ( prefix + "TightIsolationMVA2Discr"                        + suffix );
+    produces <std::vector<float> >    ( prefix + "VLooseIsolationDiscr"                           + suffix );
+    produces <std::vector<float> >    ( prefix + "LooseIsolationDiscr"                            + suffix );
+    produces <std::vector<float> >    ( prefix + "MediumIsolationDiscr"                           + suffix );
+    produces <std::vector<float> >    ( prefix + "TightIsolationDiscr"                            + suffix );
+    produces <std::vector<float> >    ( prefix + "VLooseIsolationDeltaBetaCorrDiscr"              + suffix );
+    produces <std::vector<float> >    ( prefix + "LooseIsolationDeltaBetaCorrDiscr"               + suffix );
+    produces <std::vector<float> >    ( prefix + "MediumIsolationDeltaBetaCorrDiscr"              + suffix );
+    produces <std::vector<float> >    ( prefix + "TightIsolationDeltaBetaCorrDiscr"               + suffix );
+    produces <std::vector<float> >    ( prefix + "VLooseCombinedIsolationDeltaBetaCorrDiscr"      + suffix );
+    produces <std::vector<float> >    ( prefix + "LooseCombinedIsolationDeltaBetaCorrDiscr"       + suffix );
+    produces <std::vector<float> >    ( prefix + "MediumCombinedIsolationDeltaBetaCorrDiscr"      + suffix );
+    produces <std::vector<float> >    ( prefix + "TightCombinedIsolationDeltaBetaCorrDiscr"       + suffix );
+    produces <std::vector<float> >    ( prefix + "CombinedIsolationDeltaBetaCorr3HitsDiscr"       + suffix );
+    produces <std::vector<float> >    ( prefix + "LooseCombinedIsolationDeltaBetaCorr3HitsDiscr"  + suffix );
+    produces <std::vector<float> >    ( prefix + "MediumCombinedIsolationDeltaBetaCorr3HitsDiscr" + suffix );
+    produces <std::vector<float> >    ( prefix + "TightCombinedIsolationDeltaBetaCorr3HitsDiscr"  + suffix );
+    produces <std::vector<float> >    ( prefix + "IsolationMVArawDiscr"                           + suffix );
+    produces <std::vector<float> >    ( prefix + "LooseIsolationMVADiscr"                         + suffix );
+    produces <std::vector<float> >    ( prefix + "MediumIsolationMVADiscr"                        + suffix );
+    produces <std::vector<float> >    ( prefix + "TightIsolationMVADiscr"                         + suffix );
+    produces <std::vector<float> >    ( prefix + "LooseIsolationMVA2Discr"                        + suffix );
+    produces <std::vector<float> >    ( prefix + "MediumIsolationMVA2Discr"                       + suffix );
+    produces <std::vector<float> >    ( prefix + "TightIsolationMVA2Discr"                        + suffix );
     //
     // HPSTau Signal PFCandidates Info
-    produces <std::vector<double> >    ( prefix + "SignalPFChargedHadrCandsPt"    + suffix );
-    produces <std::vector<double> >    ( prefix + "SignalPFChargedHadrCandsEta"   + suffix );
-    produces <std::vector<double> >    ( prefix + "SignalPFChargedHadrCandsPhi"   + suffix );
-    produces <std::vector<double> >    ( prefix + "SignalPFChargedHadrCandsCount" + suffix );
-    produces <std::vector<double> >    ( prefix + "SignalPFNeutrHadrCandsPt"      + suffix );
-    produces <std::vector<double> >    ( prefix + "SignalPFNeutrHadrCandsEta"     + suffix );
-    produces <std::vector<double> >    ( prefix + "SignalPFNeutrHadrCandsPhi"     + suffix );
-    produces <std::vector<double> >    ( prefix + "SignalPFNeutrHadrCandsCount"   + suffix );
-    produces <std::vector<double> >    ( prefix + "SignalPFGammaCandsPt"          + suffix );
-    produces <std::vector<double> >    ( prefix + "SignalPFGammaCandsEta"         + suffix );
-    produces <std::vector<double> >    ( prefix + "SignalPFGammaCandsPhi"         + suffix );
-    produces <std::vector<double> >    ( prefix + "SignalPFGammaCandsCount"       + suffix );
+    produces <std::vector<float> >    ( prefix + "SignalPFChargedHadrCandsPt"    + suffix );
+    produces <std::vector<float> >    ( prefix + "SignalPFChargedHadrCandsEta"   + suffix );
+    produces <std::vector<float> >    ( prefix + "SignalPFChargedHadrCandsPhi"   + suffix );
+    produces <std::vector<float> >    ( prefix + "SignalPFChargedHadrCandsCount" + suffix );
+    produces <std::vector<float> >    ( prefix + "SignalPFNeutrHadrCandsPt"      + suffix );
+    produces <std::vector<float> >    ( prefix + "SignalPFNeutrHadrCandsEta"     + suffix );
+    produces <std::vector<float> >    ( prefix + "SignalPFNeutrHadrCandsPhi"     + suffix );
+    produces <std::vector<float> >    ( prefix + "SignalPFNeutrHadrCandsCount"   + suffix );
+    produces <std::vector<float> >    ( prefix + "SignalPFGammaCandsPt"          + suffix );
+    produces <std::vector<float> >    ( prefix + "SignalPFGammaCandsEta"         + suffix );
+    produces <std::vector<float> >    ( prefix + "SignalPFGammaCandsPhi"         + suffix );
+    produces <std::vector<float> >    ( prefix + "SignalPFGammaCandsCount"       + suffix );
     //
     // HPSTau Vertex Info
     produces <std::vector<int> >    ( prefix + "VtxIndex"      + suffix );
-    produces <std::vector<double> > ( prefix + "VtxDistXY"     + suffix );
-    produces <std::vector<double> > ( prefix + "VtxDistZ"      + suffix );
-    produces <std::vector<double> > ( prefix + "LeadVtxDistXY" + suffix );
-    produces <std::vector<double> > ( prefix + "LeadVtxDistZ"  + suffix );
+    produces <std::vector<float> > ( prefix + "VtxDistXY"     + suffix );
+    produces <std::vector<float> > ( prefix + "VtxDistZ"      + suffix );
+    produces <std::vector<float> > ( prefix + "LeadVtxDistXY" + suffix );
+    produces <std::vector<float> > ( prefix + "LeadVtxDistZ"  + suffix );
     //
     // --------------------------------------------------------------------------------------- //
     // HPS Tau Optional Isolation information
-    //produces <std::vector<double> >    ( prefix + "IsolationPFChargedHadrCandsPt"    + suffix );
-    //produces <std::vector<double> >    ( prefix + "IsolationPFChargedHadrCandsEta"   + suffix );
-    //produces <std::vector<double> >    ( prefix + "IsolationPFChargedHadrCandsPhi"   + suffix );
-    //produces <std::vector<double> >    ( prefix + "IsolationPFChargedHadrCandsCount" + suffix );
-    //produces <std::vector<double> >    ( prefix + "IsolationPFNeutrHadrCandsPt"      + suffix );
-    //produces <std::vector<double> >    ( prefix + "IsolationPFNeutrHadrCandsEta"     + suffix );
-    //produces <std::vector<double> >    ( prefix + "IsolationPFNeutrHadrCandsPhi"     + suffix );
-    //produces <std::vector<double> >    ( prefix + "IsolationPFNeutrHadrCandsCount"   + suffix );
-    //produces <std::vector<double> >    ( prefix + "IsolationPFGammaCandsPt"          + suffix );
-    //produces <std::vector<double> >    ( prefix + "IsolationPFGammaCandsEta"         + suffix );
-    //produces <std::vector<double> >    ( prefix + "IsolationPFGammaCandsPhi"         + suffix );
-    //produces <std::vector<double> >    ( prefix + "IsolationPFGammaCandsCount"       + suffix );
+    //produces <std::vector<float> >    ( prefix + "IsolationPFChargedHadrCandsPt"    + suffix );
+    //produces <std::vector<float> >    ( prefix + "IsolationPFChargedHadrCandsEta"   + suffix );
+    //produces <std::vector<float> >    ( prefix + "IsolationPFChargedHadrCandsPhi"   + suffix );
+    //produces <std::vector<float> >    ( prefix + "IsolationPFChargedHadrCandsCount" + suffix );
+    //produces <std::vector<float> >    ( prefix + "IsolationPFNeutrHadrCandsPt"      + suffix );
+    //produces <std::vector<float> >    ( prefix + "IsolationPFNeutrHadrCandsEta"     + suffix );
+    //produces <std::vector<float> >    ( prefix + "IsolationPFNeutrHadrCandsPhi"     + suffix );
+    //produces <std::vector<float> >    ( prefix + "IsolationPFNeutrHadrCandsCount"   + suffix );
+    //produces <std::vector<float> >    ( prefix + "IsolationPFGammaCandsPt"          + suffix );
+    //produces <std::vector<float> >    ( prefix + "IsolationPFGammaCandsEta"         + suffix );
+    //produces <std::vector<float> >    ( prefix + "IsolationPFGammaCandsPhi"         + suffix );
+    //produces <std::vector<float> >    ( prefix + "IsolationPFGammaCandsCount"       + suffix );
     // --------------------------------------------------------------------------------------- //
-    //
+*/    //
   }
   //
 }
@@ -177,142 +179,142 @@ RootTupleMakerV2_Taus::RootTupleMakerV2_Taus(const edm::ParameterSet& iConfig) :
 void RootTupleMakerV2_Taus::
 produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
   //
-  std::auto_ptr<std::vector<double> >  eta  ( new std::vector<double>()  );
-  std::auto_ptr<std::vector<double> >  phi  ( new std::vector<double>()  );
-  std::auto_ptr<std::vector<double> >  pt  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  et  ( new std::vector<double>()   );
+  std::auto_ptr<std::vector<float> >  eta  ( new std::vector<float>()  );
+  std::auto_ptr<std::vector<float> >  phi  ( new std::vector<float>()  );
+  std::auto_ptr<std::vector<float> >  pt  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  et  ( new std::vector<float>()   );
   std::auto_ptr<std::vector<int> >     charge  ( new std::vector<int>()   );
   std::auto_ptr<std::vector<int> >     ispftau  ( new std::vector<int>()   );
   std::auto_ptr<std::vector<int> >     iscalotau  ( new std::vector<int>()   );
   std::auto_ptr<std::vector<int> >     decaymode  ( new std::vector<int>()   );
-  std::auto_ptr<std::vector<double> >  emfraction  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  hcal3x3overplead  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  hcalmaxoverplead  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  hcaltotoverplead  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  isolationpfchargedhadrcandsptsum  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  isolationpfgammacandsetsum  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  leadpfchargedhadrcandsignedsipt ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  etaleadcharged  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  phileadcharged  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  ptleadcharged  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  phiphimoment  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  etaetamoment  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  etaphimoment  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  ecalstripsumeoverplead  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  bremsrecoveryeoverplead  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  maximumhcalpfclusteret  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  matchedgenparticlept ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  matchedgenparticleeta ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  matchedgenparticlephi ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  matchedgenjetpt ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  matchedgenjeteta ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  matchedgenjetphi ( new std::vector<double>()   );
+  std::auto_ptr<std::vector<float> >  emfraction  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  hcal3x3overplead  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  hcalmaxoverplead  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  hcaltotoverplead  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  isolationpfchargedhadrcandsptsum  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  isolationpfgammacandsetsum  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  leadpfchargedhadrcandsignedsipt ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  etaleadcharged  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  phileadcharged  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  ptleadcharged  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  phiphimoment  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  etaetamoment  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  etaphimoment  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  ecalstripsumeoverplead  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  bremsrecoveryeoverplead  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  maximumhcalpfclusteret  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  matchedgenparticlept ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  matchedgenparticleeta ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  matchedgenparticlephi ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  matchedgenjetpt ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  matchedgenjeteta ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  matchedgenjetphi ( new std::vector<float>()   );
   //
   //shrinkingCone PFTau Discriminators (SCTau)
-  std::auto_ptr<std::vector<double> >  leadingtrackfindingdiscr  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  leadingtrackptcutdiscr  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  leadingpionptcutdiscr  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  isolationdiscr  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  trackisolationdiscr  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  ecalisolationdiscr  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  isolationusingleadingpiondiscr  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  trackisolationusingleadingpiondiscr  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  ecalisolationusingleadingpiondiscr  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  againstelectrondiscr  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  againstmuondiscr  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  tancdiscr  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  tancfronepercentdiscr  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  tancfrhalfpercentdiscr  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  tancfrquarterpercentdiscr  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  tancfrtenthpercentdiscr  ( new std::vector<double>()   );
+  std::auto_ptr<std::vector<float> >  leadingtrackfindingdiscr  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  leadingtrackptcutdiscr  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  leadingpionptcutdiscr  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  isolationdiscr  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  trackisolationdiscr  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  ecalisolationdiscr  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  isolationusingleadingpiondiscr  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  trackisolationusingleadingpiondiscr  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  ecalisolationusingleadingpiondiscr  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  againstelectrondiscr  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  againstmuondiscr  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  tancdiscr  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  tancfronepercentdiscr  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  tancfrhalfpercentdiscr  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  tancfrquarterpercentdiscr  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  tancfrtenthpercentdiscr  ( new std::vector<float>()   );
   //
   //hps PFTau Discriminators (HPSTau)
-  std::auto_ptr<std::vector<double> >  decaymodefindingdiscr  ( new std::vector<double>()   );
+  std::auto_ptr<std::vector<float> >  decaymodefindingdiscr  ( new std::vector<float>()   );
   //
-  std::auto_ptr<std::vector<double> >  againstelectronloosediscr        ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  againstelectronmediumdiscr       ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  againstelectrontightdiscr        ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  againstelectronmvadiscr          ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  againstelectronmva2rawdiscr      ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  againstelectronmva2categorydiscr ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  againstelectronvloosemva2discr   ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  againstelectronloosemva2discr    ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  againstelectronmediummva2discr   ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  againstelectrontightmva2discr    ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  againstelectronmva3rawdiscr      ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  againstelectronmva3categorydiscr ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  againstelectronloosemva3discr    ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  againstelectronmediummva3discr   ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  againstelectrontightmva3discr    ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  againstelectronvtightmva3discr   ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  againstelectrondeadecaldiscr     ( new std::vector<double>()   );
+  std::auto_ptr<std::vector<float> >  againstelectronloosediscr        ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  againstelectronmediumdiscr       ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  againstelectrontightdiscr        ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  againstelectronmvadiscr          ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  againstelectronmva2rawdiscr      ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  againstelectronmva2categorydiscr ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  againstelectronvloosemva2discr   ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  againstelectronloosemva2discr    ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  againstelectronmediummva2discr   ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  againstelectrontightmva2discr    ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  againstelectronmva3rawdiscr      ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  againstelectronmva3categorydiscr ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  againstelectronloosemva3discr    ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  againstelectronmediummva3discr   ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  againstelectrontightmva3discr    ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  againstelectronvtightmva3discr   ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  againstelectrondeadecaldiscr     ( new std::vector<float>()   );
   //
-  std::auto_ptr<std::vector<double> >  againstmuonloosediscr   ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  againstmuonmediumdiscr  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  againstmuontightdiscr   ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  againstmuonloose2discr  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  againstmuonmedium2discr ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  againstmuontight2discr  ( new std::vector<double>()   );
+  std::auto_ptr<std::vector<float> >  againstmuonloosediscr   ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  againstmuonmediumdiscr  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  againstmuontightdiscr   ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  againstmuonloose2discr  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  againstmuonmedium2discr ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  againstmuontight2discr  ( new std::vector<float>()   );
   //
-  std::auto_ptr<std::vector<double> >  vlooseisolationdiscr                           ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  looseisolationdiscr                            ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  mediumisolationdiscr                           ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  tightisolationdiscr                            ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  vlooseisolationdeltabetacorrdiscr              ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  looseisolationdeltabetacorrdiscr               ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  mediumisolationdeltabetacorrdiscr              ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  tightisolationdeltabetacorrdiscr               ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  vloosecombinedisolationdeltabetacorrdiscr      ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  loosecombinedisolationdeltabetacorrdiscr       ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  mediumcombinedisolationdeltabetacorrdiscr      ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  tightcombinedisolationdeltabetacorrdiscr       ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  combinedisolationdeltabetacorr3hitsdiscr       ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  loosecombinedisolationdeltabetacorr3hitsdiscr  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  mediumcombinedisolationdeltabetacorr3hitsdiscr ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  tightcombinedisolationdeltabetacorr3hitsdiscr  ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  isolationmvarawdiscr                           ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  looseisolationmvadiscr                         ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  mediumisolationmvadiscr                        ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  tightisolationmvadiscr                         ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  looseisolationmva2discr                        ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  mediumisolationmva2discr                       ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  tightisolationmva2discr                        ( new std::vector<double>()   );
+  std::auto_ptr<std::vector<float> >  vlooseisolationdiscr                           ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  looseisolationdiscr                            ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  mediumisolationdiscr                           ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  tightisolationdiscr                            ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  vlooseisolationdeltabetacorrdiscr              ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  looseisolationdeltabetacorrdiscr               ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  mediumisolationdeltabetacorrdiscr              ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  tightisolationdeltabetacorrdiscr               ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  vloosecombinedisolationdeltabetacorrdiscr      ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  loosecombinedisolationdeltabetacorrdiscr       ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  mediumcombinedisolationdeltabetacorrdiscr      ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  tightcombinedisolationdeltabetacorrdiscr       ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  combinedisolationdeltabetacorr3hitsdiscr       ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  loosecombinedisolationdeltabetacorr3hitsdiscr  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  mediumcombinedisolationdeltabetacorr3hitsdiscr ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  tightcombinedisolationdeltabetacorr3hitsdiscr  ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  isolationmvarawdiscr                           ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  looseisolationmvadiscr                         ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  mediumisolationmvadiscr                        ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  tightisolationmvadiscr                         ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  looseisolationmva2discr                        ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  mediumisolationmva2discr                       ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  tightisolationmva2discr                        ( new std::vector<float>()   );
   //
   //Signal Particles (HPSTau)  
-  std::auto_ptr<std::vector<double> >  signalpfchargedhadrcandspt    ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  signalpfchargedhadrcandseta   ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  signalpfchargedhadrcandsphi   ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  signalpfchargedhadrcandscount ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  signalpfneutrhadrcandspt      ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  signalpfneutrhadrcandseta     ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  signalpfneutrhadrcandsphi     ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  signalpfneutrhadrcandscount   ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  signalpfgammacandspt          ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  signalpfgammacandseta         ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  signalpfgammacandsphi         ( new std::vector<double>()   );
-  std::auto_ptr<std::vector<double> >  signalpfgammacandscount       ( new std::vector<double>()   );
+  std::auto_ptr<std::vector<float> >  signalpfchargedhadrcandspt    ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  signalpfchargedhadrcandseta   ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  signalpfchargedhadrcandsphi   ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  signalpfchargedhadrcandscount ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  signalpfneutrhadrcandspt      ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  signalpfneutrhadrcandseta     ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  signalpfneutrhadrcandsphi     ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  signalpfneutrhadrcandscount   ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  signalpfgammacandspt          ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  signalpfgammacandseta         ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  signalpfgammacandsphi         ( new std::vector<float>()   );
+  std::auto_ptr<std::vector<float> >  signalpfgammacandscount       ( new std::vector<float>()   );
   //                                                                                                                                                                          
   // HPSTau Vertex Info 
   std::auto_ptr<std::vector<int> >     vtxIndex   ( new std::vector<int>   ()  );
-  std::auto_ptr<std::vector<double> >  vtxDistXY  ( new std::vector<double>()  );
-  std::auto_ptr<std::vector<double> >  vtxDistZ   ( new std::vector<double>()  );
-  std::auto_ptr<std::vector<double> >  vtx0DistXY ( new std::vector<double>()  );
-  std::auto_ptr<std::vector<double> >  vtx0DistZ  ( new std::vector<double>()  );
+  std::auto_ptr<std::vector<float> >  vtxDistXY  ( new std::vector<float>()  );
+  std::auto_ptr<std::vector<float> >  vtxDistZ   ( new std::vector<float>()  );
+  std::auto_ptr<std::vector<float> >  vtx0DistXY ( new std::vector<float>()  );
+  std::auto_ptr<std::vector<float> >  vtx0DistZ  ( new std::vector<float>()  );
   //
   // --------------------------------------------------------------------------------------- //
   // HPS Tau Optional Isolation information
-  //std::auto_ptr<std::vector<double> >  isolationpfchargedhadrcandspt    ( new std::vector<double>()   );
-  //std::auto_ptr<std::vector<double> >  isolationpfchargedhadrcandseta   ( new std::vector<double>()   );
-  //std::auto_ptr<std::vector<double> >  isolationpfchargedhadrcandsphi   ( new std::vector<double>()   );
-  //std::auto_ptr<std::vector<double> >  isolationpfchargedhadrcandscount ( new std::vector<double>()   );
-  //std::auto_ptr<std::vector<double> >  isolationpfneutrhadrcandspt      ( new std::vector<double>()   );
-  //std::auto_ptr<std::vector<double> >  isolationpfneutrhadrcandseta     ( new std::vector<double>()   );
-  //std::auto_ptr<std::vector<double> >  isolationpfneutrhadrcandsphi     ( new std::vector<double>()   );
-  //std::auto_ptr<std::vector<double> >  isolationpfneutrhadrcandscount   ( new std::vector<double>()   );
-  //std::auto_ptr<std::vector<double> >  isolationpfgammacandspt          ( new std::vector<double>()   );
-  //std::auto_ptr<std::vector<double> >  isolationpfgammacandseta         ( new std::vector<double>()   );
-  //std::auto_ptr<std::vector<double> >  isolationpfgammacandsphi         ( new std::vector<double>()   );
-  //std::auto_ptr<std::vector<double> >  isolationpfgammacandscount       ( new std::vector<double>()   );
+  //std::auto_ptr<std::vector<float> >  isolationpfchargedhadrcandspt    ( new std::vector<float>()   );
+  //std::auto_ptr<std::vector<float> >  isolationpfchargedhadrcandseta   ( new std::vector<float>()   );
+  //std::auto_ptr<std::vector<float> >  isolationpfchargedhadrcandsphi   ( new std::vector<float>()   );
+  //std::auto_ptr<std::vector<float> >  isolationpfchargedhadrcandscount ( new std::vector<float>()   );
+  //std::auto_ptr<std::vector<float> >  isolationpfneutrhadrcandspt      ( new std::vector<float>()   );
+  //std::auto_ptr<std::vector<float> >  isolationpfneutrhadrcandseta     ( new std::vector<float>()   );
+  //std::auto_ptr<std::vector<float> >  isolationpfneutrhadrcandsphi     ( new std::vector<float>()   );
+  //std::auto_ptr<std::vector<float> >  isolationpfneutrhadrcandscount   ( new std::vector<float>()   );
+  //std::auto_ptr<std::vector<float> >  isolationpfgammacandspt          ( new std::vector<float>()   );
+  //std::auto_ptr<std::vector<float> >  isolationpfgammacandseta         ( new std::vector<float>()   );
+  //std::auto_ptr<std::vector<float> >  isolationpfgammacandsphi         ( new std::vector<float>()   );
+  //std::auto_ptr<std::vector<float> >  isolationpfgammacandscount       ( new std::vector<float>()   );
   // --------------------------------------------------------------------------------------- //
   //  
   edm::Handle<reco::VertexCollection> primaryVertices;
@@ -431,43 +433,43 @@ produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
       }
       //
       //
-      eta -> push_back ( (double)(it -> eta()) ) ;
-      phi -> push_back ( (double)(it -> phi()) ) ;
-      pt  -> push_back ( (double)(it -> pt() ) ) ;
-      et  -> push_back ( (double)(it -> et() ) ) ;
+      eta -> push_back ( (float)(it -> eta()) ) ;
+      phi -> push_back ( (float)(it -> phi()) ) ;
+      pt  -> push_back ( (float)(it -> pt() ) ) ;
+      et  -> push_back ( (float)(it -> et() ) ) ;
       charge  -> push_back ( (int)(it -> charge() ) ) ;
       if(  it ->isPFTau()  ){ispftau   -> push_back ( 1 ) ;}// all should be PF Tau
       if( !it ->isPFTau()  ){ispftau   -> push_back ( 0 ) ;}// all should be PF Tau
       if(  it ->isCaloTau()){iscalotau -> push_back ( 1 ) ;}// all should be PF Tau
       if( !it ->isCaloTau()){iscalotau -> push_back ( 0 ) ;}// all should be PF Tau
-      decaymode                        -> push_back( (double)(it->decayMode())  );
-      emfraction                       -> push_back( (double)(it->emFraction()) );
-      hcal3x3overplead                 -> push_back( (double)(it->hcal3x3OverPLead()) );
-      hcalmaxoverplead                 -> push_back( (double)(it->hcalMaxOverPLead()) );
-      hcaltotoverplead                 -> push_back( (double)(it->hcalTotOverPLead()) );
-      isolationpfchargedhadrcandsptsum -> push_back( (double)(it->isolationPFChargedHadrCandsPtSum()) );
-      isolationpfgammacandsetsum       -> push_back( (double)(it->isolationPFGammaCandsEtSum())       );
-      leadpfchargedhadrcandsignedsipt  -> push_back( (double)(it->leadPFChargedHadrCandsignedSipt())  );
+      decaymode                        -> push_back( (float)(it->decayMode())  );
+      emfraction                       -> push_back( (float)(it->emFraction()) );
+      hcal3x3overplead                 -> push_back( (float)(it->hcal3x3OverPLead()) );
+      hcalmaxoverplead                 -> push_back( (float)(it->hcalMaxOverPLead()) );
+      hcaltotoverplead                 -> push_back( (float)(it->hcalTotOverPLead()) );
+      isolationpfchargedhadrcandsptsum -> push_back( (float)(it->isolationPFChargedHadrCandsPtSum()) );
+      isolationpfgammacandsetsum       -> push_back( (float)(it->isolationPFGammaCandsEtSum())       );
+      leadpfchargedhadrcandsignedsipt  -> push_back( (float)(it->leadPFChargedHadrCandsignedSipt())  );
       reco::PFCandidateRef leadPFChargedHadrCand_Ref = it->leadPFChargedHadrCand();
       if(leadPFChargedHadrCand_Ref.isNonnull()){// this check is needed in case hpsTau fails decayModeFinding.
-	etaleadcharged                   -> push_back( (double)(leadPFChargedHadrCand_Ref->eta()) );
-	phileadcharged                   -> push_back( (double)(leadPFChargedHadrCand_Ref->phi()) );
-	ptleadcharged                    -> push_back( (double)(leadPFChargedHadrCand_Ref->pt())  );
+	etaleadcharged                   -> push_back( (float)(leadPFChargedHadrCand_Ref->eta()) );
+	phileadcharged                   -> push_back( (float)(leadPFChargedHadrCand_Ref->phi()) );
+	ptleadcharged                    -> push_back( (float)(leadPFChargedHadrCand_Ref->pt())  );
       }
-      phiphimoment                     -> push_back( (double)(it->phiphiMoment()) );
-      etaetamoment                     -> push_back( (double)(it->etaetaMoment()) );
-      etaphimoment                     -> push_back( (double)(it->etaphiMoment()) );
-      ecalstripsumeoverplead           -> push_back( (double)(it->ecalStripSumEOverPLead()) );
-      bremsrecoveryeoverplead          -> push_back( (double)(it->bremsRecoveryEOverPLead()) );
-      maximumhcalpfclusteret           -> push_back( (double)(it->maximumHCALPFClusterEt()) );
+      phiphimoment                     -> push_back( (float)(it->phiphiMoment()) );
+      etaetamoment                     -> push_back( (float)(it->etaetaMoment()) );
+      etaphimoment                     -> push_back( (float)(it->etaphiMoment()) );
+      ecalstripsumeoverplead           -> push_back( (float)(it->ecalStripSumEOverPLead()) );
+      bremsrecoveryeoverplead          -> push_back( (float)(it->bremsRecoveryEOverPLead()) );
+      maximumhcalpfclusteret           -> push_back( (float)(it->maximumHCALPFClusterEt()) );
       //
       // ----------- Vertex association ----------- //
-      double minVtxDist3D = 9999.;
+      float minVtxDist3D = 9999.;
       int    vtxIndex_    = -1;
-      double vtxDistXY_   = -9999.;
-      double vtxDistZ_    = -9999.;      
-      double vtx0DistXY_  = -9999.;
-      double vtx0DistZ_   = -9999.;
+      float vtxDistXY_   = -9999.;
+      float vtxDistZ_    = -9999.;      
+      float vtx0DistXY_  = -9999.;
+      float vtx0DistZ_   = -9999.;
 
       if( primaryVertices.isValid() ) {
 	edm::LogInfo("RootTupleMakerV2_TausInfo") << "Total # Primary Vertices: " << primaryVertices->size();
@@ -475,11 +477,11 @@ produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
 	int i_vertex = 0;
 
         for( reco::VertexCollection::const_iterator v_it=primaryVertices->begin() ; v_it!=primaryVertices->end() ; ++v_it ) {
-	  double distX  = (it->vertex()).x()-(v_it->position()).x();
-	  double distY  = (it->vertex()).y()-(v_it->position()).y();
-	  double distZ  = (it->vertex()).z()-(v_it->position()).z();
-	  double distXY = sqrt(pow(distX,2) + pow(distY,2));
-	  double dist3D = sqrt(pow(distXY,2) + pow(distZ,2));
+	  float distX  = (it->vertex()).x()-(v_it->position()).x();
+	  float distY  = (it->vertex()).y()-(v_it->position()).y();
+	  float distZ  = (it->vertex()).z()-(v_it->position()).z();
+	  float distXY = sqrt(pow(distX,2) + pow(distY,2));
+	  float dist3D = sqrt(pow(distXY,2) + pow(distZ,2));
 	  
 	  if ( i_vertex == 0 ) {  //leading vertex, by default sorted by sum(pt^2)
 	    vtx0DistXY_ = distXY;
@@ -505,9 +507,9 @@ produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
       vtx0DistZ                -> push_back( vtx0DistZ_ );
       //
       // ----------- Gen-Reco Matching ----------- //
-      double genparPt =-999.; double genjetPt =-999.;
-      double genparEta=-999.; double genjetEta=-999.;
-      double genparPhi=-999.; double genjetPhi=-999.;
+      float genparPt =-999.; float genjetPt =-999.;
+      float genparEta=-999.; float genjetEta=-999.;
+      float genparPhi=-999.; float genjetPhi=-999.;
       if ( !iEvent.isRealData() ) {
 	for(uint igen = 0 ; igen < it->genParticleRefs().size() ; ++igen ){//genParticleRefs().size() is either 0 or 1
 	  genparPt=it->genParticle(igen)->pt();
@@ -520,12 +522,12 @@ produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
 	  genjetPhi=it->genJet()->phi();
 	}
       }
-      matchedgenparticlept   -> push_back ( (double)(genparPt)  );
-      matchedgenparticleeta  -> push_back ( (double)(genparEta) );
-      matchedgenparticlephi  -> push_back ( (double)(genparPhi) );
-      matchedgenjetpt        -> push_back ( (double)(genjetPt)  );
-      matchedgenjeteta       -> push_back ( (double)(genjetEta) );
-      matchedgenjetphi       -> push_back ( (double)(genjetPhi) );
+      matchedgenparticlept   -> push_back ( (float)(genparPt)  );
+      matchedgenparticleeta  -> push_back ( (float)(genparEta) );
+      matchedgenparticlephi  -> push_back ( (float)(genparPhi) );
+      matchedgenjetpt        -> push_back ( (float)(genjetPt)  );
+      matchedgenjeteta       -> push_back ( (float)(genjetEta) );
+      matchedgenjetphi       -> push_back ( (float)(genjetPhi) );
       //
       //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       //  --  User Isolation and isoDeposit Methods -- Feb 2012
@@ -553,43 +555,43 @@ produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
       //
       if(isHPSTau){
 	reco::PFCandidateRefVector signalPFChargedHadrCands_RefVector = it->signalPFChargedHadrCands();
-	double signalPFChargedHadrCands_RefVector_size=0;
+	float signalPFChargedHadrCands_RefVector_size=0;
 	if(signalPFChargedHadrCands_RefVector.isNonnull()){
-	  signalPFChargedHadrCands_RefVector_size=(double)(signalPFChargedHadrCands_RefVector.size());
+	  signalPFChargedHadrCands_RefVector_size=(float)(signalPFChargedHadrCands_RefVector.size());
 	  reco::PFCandidateRefVector::iterator itSignalChargedHad     = signalPFChargedHadrCands_RefVector.begin();
 	  reco::PFCandidateRefVector::iterator itSignalChargedHad_end = signalPFChargedHadrCands_RefVector.end();
 	  for (; itSignalChargedHad != itSignalChargedHad_end; ++itSignalChargedHad ) {
-	    signalpfchargedhadrcandspt  -> push_back((double)(*itSignalChargedHad)->pt());
-	    signalpfchargedhadrcandseta -> push_back((double)(*itSignalChargedHad)->eta());
-	    signalpfchargedhadrcandsphi -> push_back((double)(*itSignalChargedHad)->phi());
+	    signalpfchargedhadrcandspt  -> push_back((float)(*itSignalChargedHad)->pt());
+	    signalpfchargedhadrcandseta -> push_back((float)(*itSignalChargedHad)->eta());
+	    signalpfchargedhadrcandsphi -> push_back((float)(*itSignalChargedHad)->phi());
 	  }
 	}
 	signalpfchargedhadrcandscount -> push_back(signalPFChargedHadrCands_RefVector_size);
 	//
 	reco::PFCandidateRefVector signalPFNeutrHadrCands_RefVector = it->signalPFNeutrHadrCands();
-	double signalPFNeutrHadrCands_RefVector_size=0;
+	float signalPFNeutrHadrCands_RefVector_size=0;
 	if(signalPFNeutrHadrCands_RefVector.isNonnull()){
-  	  signalPFNeutrHadrCands_RefVector_size=(double)(signalPFNeutrHadrCands_RefVector.size());
+  	  signalPFNeutrHadrCands_RefVector_size=(float)(signalPFNeutrHadrCands_RefVector.size());
 	  reco::PFCandidateRefVector::iterator itSignalNeutrHadr     = signalPFNeutrHadrCands_RefVector.begin();
 	  reco::PFCandidateRefVector::iterator itSignalNeutrHadr_end = signalPFNeutrHadrCands_RefVector.end();
 	  for (; itSignalNeutrHadr != itSignalNeutrHadr_end; ++itSignalNeutrHadr ) {
-	    signalpfneutrhadrcandspt  -> push_back((double)(*itSignalNeutrHadr)->pt());	
-	    signalpfneutrhadrcandseta -> push_back((double)(*itSignalNeutrHadr)->eta());	
-	    signalpfneutrhadrcandsphi -> push_back((double)(*itSignalNeutrHadr)->phi());	
+	    signalpfneutrhadrcandspt  -> push_back((float)(*itSignalNeutrHadr)->pt());	
+	    signalpfneutrhadrcandseta -> push_back((float)(*itSignalNeutrHadr)->eta());	
+	    signalpfneutrhadrcandsphi -> push_back((float)(*itSignalNeutrHadr)->phi());	
 	  }
 	}
 	signalpfneutrhadrcandscount -> push_back(signalPFNeutrHadrCands_RefVector_size);
 	//
 	reco::PFCandidateRefVector signalPFGammaCands_RefVector = it->signalPFGammaCands();
-	double signalPFGammaCands_RefVector_size=0;
+	float signalPFGammaCands_RefVector_size=0;
 	if(signalPFGammaCands_RefVector.isNonnull()){
-	  signalPFGammaCands_RefVector_size=(double)(signalPFGammaCands_RefVector.size());
+	  signalPFGammaCands_RefVector_size=(float)(signalPFGammaCands_RefVector.size());
 	  reco::PFCandidateRefVector::iterator itSignalGamma     = signalPFGammaCands_RefVector.begin();
 	  reco::PFCandidateRefVector::iterator itSignalGamma_end = signalPFGammaCands_RefVector.end();
 	  for (; itSignalGamma != itSignalGamma_end; ++itSignalGamma ) {
-	    signalpfgammacandspt  -> push_back((double)(*itSignalGamma)->pt());
-	    signalpfgammacandseta -> push_back((double)(*itSignalGamma)->eta());
-	    signalpfgammacandsphi -> push_back((double)(*itSignalGamma)->phi());
+	    signalpfgammacandspt  -> push_back((float)(*itSignalGamma)->pt());
+	    signalpfgammacandseta -> push_back((float)(*itSignalGamma)->eta());
+	    signalpfgammacandsphi -> push_back((float)(*itSignalGamma)->phi());
 	  }
 	}
 	signalpfgammacandscount -> push_back(signalPFGammaCands_RefVector_size);
@@ -597,36 +599,36 @@ produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
 	// --------------------------------------------------------------------------------------- //
 	// HPS Tau Optional Isolation information 
 	//reco::PFCandidateRefVector isoPFChargedHadrCands_RefVector = it->isolationPFChargedHadrCands();
-	//isolationpfchargedhadrcandscount ->push_back((double)(isoPFChargedHadrCands_RefVector.size()));
+	//isolationpfchargedhadrcandscount ->push_back((float)(isoPFChargedHadrCands_RefVector.size()));
 	//if(isoPFChargedHadrCands_RefVector.isNonnull()){
 	//  reco::PFCandidateRefVector::iterator itIsoChargedHad     = isoPFChargedHadrCands_RefVector.begin();
 	//  reco::PFCandidateRefVector::iterator itIsoChargedHad_end = isoPFChargedHadrCands_RefVector.end();
 	//  for (; itIsoChargedHad != itIsoChargedHad_end; ++itIsoChargedHad ) {
-	//    isolationpfchargedhadrcandspt  -> push_back((double)(*itIsoChargedHad)->pt());
-	//    isolationpfchargedhadrcandseta -> push_back((double)(*itIsoChargedHad)->eta());
-	//    isolationpfchargedhadrcandsphi -> push_back((double)(*itIsoChargedHad)->phi());
+	//    isolationpfchargedhadrcandspt  -> push_back((float)(*itIsoChargedHad)->pt());
+	//    isolationpfchargedhadrcandseta -> push_back((float)(*itIsoChargedHad)->eta());
+	//    isolationpfchargedhadrcandsphi -> push_back((float)(*itIsoChargedHad)->phi());
 	//  }
 	//}
 	//reco::PFCandidateRefVector isoPFNeutrHadrCands_RefVector = it->isolationPFNeutrHadrCands();
-	//isolationpfneutrhadrcandscount -> push_back((double)(isoPFNeutrHadrCands_RefVector.size()));
+	//isolationpfneutrhadrcandscount -> push_back((float)(isoPFNeutrHadrCands_RefVector.size()));
 	//if(isoPFNeutrHadrCands_RefVector.isNonnull()){
 	//  reco::PFCandidateRefVector::iterator itIsoNeutrHadr     = isoPFNeutrHadrCands_RefVector.begin();
 	//  reco::PFCandidateRefVector::iterator itIsoNeutrHadr_end = isoPFNeutrHadrCands_RefVector.end();
 	//  for (; itIsoNeutrHadr != itIsoNeutrHadr_end; ++itIsoNeutrHadr ) {
-	//    isolationpfneutrhadrcandspt  -> push_back((double)(*itIsoNeutrHadr)->pt());
-	//    isolationpfneutrhadrcandseta -> push_back((double)(*itIsoNeutrHadr)->eta());
-	//    isolationpfneutrhadrcandsphi -> push_back((double)(*itIsoNeutrHadr)->phi());
+	//    isolationpfneutrhadrcandspt  -> push_back((float)(*itIsoNeutrHadr)->pt());
+	//    isolationpfneutrhadrcandseta -> push_back((float)(*itIsoNeutrHadr)->eta());
+	//    isolationpfneutrhadrcandsphi -> push_back((float)(*itIsoNeutrHadr)->phi());
 	//  }
 	//}
 	//reco::PFCandidateRefVector isoPFGammaCands_RefVector = it->isolationPFGammaCands();
-	//isolationpfgammacandscount -> push_back((double)(isoPFGammaCands_RefVector.size()));
+	//isolationpfgammacandscount -> push_back((float)(isoPFGammaCands_RefVector.size()));
 	//if(isoPFGammaCands_RefVector.isNonnull()){
 	//  reco::PFCandidateRefVector::iterator itIsoGamma     = isoPFGammaCands_RefVector.begin();
 	//  reco::PFCandidateRefVector::iterator itIsoGamma_end = isoPFGammaCands_RefVector.end();
 	//  for (; itIsoGamma != itIsoGamma_end; ++itIsoGamma ) {
-	//    isolationpfgammacandspt  -> push_back((double)(*itIsoGamma)->pt());
-	//    isolationpfgammacandseta -> push_back((double)(*itIsoGamma)->eta());
-	//    isolationpfgammacandsphi -> push_back((double)(*itIsoGamma)->phi());
+	//    isolationpfgammacandspt  -> push_back((float)(*itIsoGamma)->pt());
+	//    isolationpfgammacandseta -> push_back((float)(*itIsoGamma)->eta());
+	//    isolationpfgammacandsphi -> push_back((float)(*itIsoGamma)->phi());
 	//  }
 	//}
 	// --------------------------------------------------------------------------------------- //
@@ -637,7 +639,7 @@ produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
   } else {
     edm::LogError("RootTupleMakerV2_TausError") << "Error! Can't get the product " << inputTag;
   }
-  iEvent.put( eta,                              prefix + "Eta"                               + suffix );
+ /* iEvent.put( eta,                              prefix + "Eta"                               + suffix );
   iEvent.put( phi,                              prefix + "Phi"                               + suffix );
   iEvent.put( pt,                               prefix + "Pt"                                + suffix );
   iEvent.put( et,                               prefix + "Et"                                + suffix );
@@ -667,9 +669,10 @@ produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
   iEvent.put( matchedgenjetpt,                  prefix + "MatchedGenJetPt"                   + suffix );
   iEvent.put( matchedgenjeteta,                 prefix + "MatchedGenJetEta"                  + suffix );
   iEvent.put( matchedgenjetphi,                 prefix + "MatchedGenJetPhi"                  + suffix );
+*/
   //
   if(isSCTau){
-    iEvent.put( leadingtrackfindingdiscr,               prefix + "LeadingTrackFindingDiscr"            + suffix );
+/*    iEvent.put( leadingtrackfindingdiscr,               prefix + "LeadingTrackFindingDiscr"            + suffix );
     iEvent.put( leadingtrackptcutdiscr,                 prefix + "LeadingTrackPtCutDiscr"              + suffix );
     iEvent.put( leadingpionptcutdiscr,                  prefix + "LeadingPionPtCutDiscr"               + suffix );
     iEvent.put( isolationdiscr,                         prefix + "IsolationDiscr"                      + suffix );
@@ -684,11 +687,12 @@ produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
     iEvent.put( tancfronepercentdiscr,                  prefix + "TaNCfrOnePercentDiscr"               + suffix );
     iEvent.put( tancfrhalfpercentdiscr,                 prefix + "TaNCfrHalfPercentDiscr"              + suffix );
     iEvent.put( tancfrquarterpercentdiscr,              prefix + "TaNCfrQuarterPercentDiscr"           + suffix );
-    iEvent.put( tancfrtenthpercentdiscr,                prefix + "TaNCfrTenthPercentDiscr"             + suffix );
-  }
+*/    iEvent.put( tancfrtenthpercentdiscr,                prefix + "TaNCfrTenthPercentDiscr"             + suffix );
+ 
+ }
   //
   if(isHPSTau){
-    iEvent.put( decaymodefindingdiscr,                     prefix + "DecayModeFindingDiscr"                       + suffix );
+/*    iEvent.put( decaymodefindingdiscr,                     prefix + "DecayModeFindingDiscr"                       + suffix );
     //
     iEvent.put( againstelectronloosediscr,                 prefix + "AgainstElectronLooseDiscr"                   + suffix );
     iEvent.put( againstelectronmediumdiscr,                prefix + "AgainstElectronMediumDiscr"                  + suffix );
@@ -772,6 +776,6 @@ produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
     //iEvent.put( isolationpfgammacandseta,        prefix +  "IsolationPFGammaCandsEta"        + suffix );
     //iEvent.put( isolationpfgammacandsphi,        prefix +  "IsolationPFGammaCandsPhi"        + suffix );
     //iEvent.put( isolationpfgammacandscount,      prefix +  "IsolationPFGammaCandsCount"      + suffix );
-    // --------------------------------------------------------------------------------------- //
+*/  // --------------------------------------------------------------------------------------- //
   }
 }

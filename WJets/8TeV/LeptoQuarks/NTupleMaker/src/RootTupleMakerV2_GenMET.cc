@@ -10,17 +10,17 @@ RootTupleMakerV2_GenMET::RootTupleMakerV2_GenMET(const edm::ParameterSet& iConfi
     prefix  (iConfig.getParameter<std::string>  ("Prefix")),
     suffix  (iConfig.getParameter<std::string>  ("Suffix"))
 {
-  produces <std::vector<double> > ( prefix + "MET" + suffix );
-  produces <std::vector<double> > ( prefix + "METPhi" + suffix );
-  produces <std::vector<double> > ( prefix + "SumET" + suffix );
+  produces <std::vector<float> > ( prefix + "MET" + suffix );
+  produces <std::vector<float> > ( prefix + "METPhi" + suffix );
+  produces <std::vector<float> > ( prefix + "SumET" + suffix );
 }
 
 void RootTupleMakerV2_GenMET::
 produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
 
-  std::auto_ptr<std::vector<double> >  met  ( new std::vector<double>()  );
-  std::auto_ptr<std::vector<double> >  metphi  ( new std::vector<double>()  );
-  std::auto_ptr<std::vector<double> >  sumet  ( new std::vector<double>()  );
+  std::auto_ptr<std::vector<float> >  met  ( new std::vector<float>()  );
+  std::auto_ptr<std::vector<float> >  metphi  ( new std::vector<float>()  );
+  std::auto_ptr<std::vector<float> >  sumet  ( new std::vector<float>()  );
 
   //-----------------------------------------------------------------
   if( !iEvent.isRealData() ) {

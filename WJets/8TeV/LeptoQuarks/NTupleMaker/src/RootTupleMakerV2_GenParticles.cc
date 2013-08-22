@@ -1,9 +1,9 @@
 #include "Leptoquarks/RootTupleMakerV2/interface/RootTupleMakerV2_GenParticles.h"
-#include "DataFormats/HepMCCandidate/interface/GenParticle.h"
-#include "RecoTauTag/TauTagTools/interface/GeneratorTau.h"
-#include "FWCore/MessageLogger/interface/MessageLogger.h"
 #include "FWCore/Framework/interface/Event.h"
-#include "TMath.h"
+#include "FWCore/MessageLogger/interface/MessageLogger.h"
+#include "DataFormats/HepMCCandidate/interface/GenParticle.h"
+#include "TLorentzVector.h"
+
 
 RootTupleMakerV2_GenParticles::RootTupleMakerV2_GenParticles(const edm::ParameterSet& iConfig) :
     inputTag(iConfig.getParameter<edm::InputTag>("InputTag")),
@@ -11,50 +11,287 @@ RootTupleMakerV2_GenParticles::RootTupleMakerV2_GenParticles(const edm::Paramete
     suffix  (iConfig.getParameter<std::string>  ("Suffix")),
     maxSize (iConfig.getParameter<unsigned int> ("MaxSize"))
 {
-  produces <std::vector<double> > ( prefix + "Eta"          + suffix );
-  produces <std::vector<double> > ( prefix + "Phi"          + suffix );
-  produces <std::vector<double> > ( prefix + "P"            + suffix );
-  produces <std::vector<double> > ( prefix + "Px"           + suffix );
-  produces <std::vector<double> > ( prefix + "Py"           + suffix );
-  produces <std::vector<double> > ( prefix + "Pz"           + suffix );
-  produces <std::vector<double> > ( prefix + "Pt"           + suffix );
-  produces <std::vector<double> > ( prefix + "Energy"       + suffix );
-  produces <std::vector<int> >    ( prefix + "PdgId"        + suffix );
-  produces <std::vector<double> > ( prefix + "VX"           + suffix );
-  produces <std::vector<double> > ( prefix + "VY"           + suffix );
-  produces <std::vector<double> > ( prefix + "VZ"           + suffix );
-  produces <std::vector<int> >    ( prefix + "NumDaught"    + suffix );
-  produces <std::vector<int> >    ( prefix + "Status"       + suffix );
-  produces <std::vector<int> >    ( prefix + "MotherIndex"  + suffix );
-  produces <std::vector<int> >    ( prefix + "TauDecayMode" + suffix );
-  produces <std::vector<double> > ( prefix + "TauVisiblePt" + suffix );
-  produces <std::vector<double> > ( prefix + "TauVisibleEta"+ suffix );
-  produces <std::vector<double> > ( prefix + "TauVisiblePhi"+ suffix );
+  produces <std::vector<float> > ( prefix + "Eta" + suffix );
+  produces <std::vector<float> > ( prefix + "Phi" + suffix );
+  produces <std::vector<float> > ( prefix + "P" + suffix );
+  produces <std::vector<float> > ( prefix + "Px" + suffix );
+  produces <std::vector<float> > ( prefix + "Py" + suffix );
+  produces <std::vector<float> > ( prefix + "Pz" + suffix );
+  produces <std::vector<float> > ( prefix + "Pt" + suffix );
+  produces <std::vector<float> > ( prefix + "Energy" + suffix );
+  produces <std::vector<int> >    ( prefix + "PdgId" + suffix );
+  produces <std::vector<float> > ( prefix + "VX" + suffix );
+  produces <std::vector<float> > ( prefix + "VY" + suffix );
+  produces <std::vector<float> > ( prefix + "VZ" + suffix );
+  produces <std::vector<int> >    ( prefix + "NumDaught" + suffix );
+  produces <std::vector<int> >    ( prefix + "Status" + suffix );
+  produces <std::vector<int> >    ( prefix + "MotherIndex" + suffix );
 }
 
 void RootTupleMakerV2_GenParticles::
 produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
 
-  std::auto_ptr<std::vector<double> >  eta  ( new std::vector<double>()  );
-  std::auto_ptr<std::vector<double> >  phi  ( new std::vector<double>()  );
-  std::auto_ptr<std::vector<double> >  p    ( new std::vector<double>()  );
-  std::auto_ptr<std::vector<double> >  px   ( new std::vector<double>()  );
-  std::auto_ptr<std::vector<double> >  py   ( new std::vector<double>()  );
-  std::auto_ptr<std::vector<double> >  pz   ( new std::vector<double>()  );
-  std::auto_ptr<std::vector<double> >  pt   ( new std::vector<double>()  );
-  std::auto_ptr<std::vector<double> >  energy  ( new std::vector<double>()  );
-  std::auto_ptr<std::vector<int> >     pdgId   ( new std::vector<int>()  );
-  std::auto_ptr<std::vector<double> >  vx  ( new std::vector<double>()  );
-  std::auto_ptr<std::vector<double> >  vy  ( new std::vector<double>()  );
-  std::auto_ptr<std::vector<double> >  vz  ( new std::vector<double>()  );
+  std::auto_ptr<std::vector<float> >  eta  ( new std::vector<float>()  );
+  std::auto_ptr<std::vector<float> >  phi  ( new std::vector<float>()  );
+  std::auto_ptr<std::vector<float> >  p  ( new std::vector<float>()  );
+  std::auto_ptr<std::vector<float> >  px  ( new std::vector<float>()  );
+  std::auto_ptr<std::vector<float> >  py  ( new std::vector<float>()  );
+  std::auto_ptr<std::vector<float> >  pz  ( new std::vector<float>()  );
+  std::auto_ptr<std::vector<float> >  pt  ( new std::vector<float>()  );
+  std::auto_ptr<std::vector<float> >  energy  ( new std::vector<float>()  );
+  std::auto_ptr<std::vector<int> >     pdgId ( new std::vector<int>()  );
+  std::auto_ptr<std::vector<float> >  vx  ( new std::vector<float>()  );
+  std::auto_ptr<std::vector<float> >  vy  ( new std::vector<float>()  );
+  std::auto_ptr<std::vector<float> >  vz  ( new std::vector<float>()  );
   std::auto_ptr<std::vector<int> >     numDaught  ( new std::vector<int>()  );
-  std::auto_ptr<std::vector<int> >     status     ( new std::vector<int>()  );
-  std::auto_ptr<std::vector<int> >     motherIndex   ( new std::vector<int>()  );
-  std::auto_ptr<std::vector<int> >     taudecaymode  ( new std::vector<int>()  );
-  std::auto_ptr<std::vector<double> >  tauvisiblept  ( new std::vector<double>()  );
-  std::auto_ptr<std::vector<double> >  tauvisibleeta ( new std::vector<double>()  );
-  std::auto_ptr<std::vector<double> >  tauvisiblephi ( new std::vector<double>()  );
+  std::auto_ptr<std::vector<int> >     status  ( new std::vector<int>()  );
+  std::auto_ptr<std::vector<int> >     motherIndex  ( new std::vector<int>()  );
   
+  //-----------------------------------------------------------------
+
+  std::vector<TLorentzVector> genmuons;
+  std::vector<TLorentzVector> _muonsfromW;
+  std::vector<TLorentzVector> _status1muonsfromW;
+  std::vector<int> _muonsfromW_ids;
+  std::vector<int> _status1muonsfromW_ids;
+
+  std::vector<TLorentzVector> genelectrons;
+  std::vector<TLorentzVector> _electronsfromW;
+  std::vector<TLorentzVector> _status1electronsfromW;
+  std::vector<int> _electronsfromW_ids;
+  std::vector<int> _status1electronsfromW_ids;
+
+  std::vector<int> pdgids;
+  std::vector<TLorentzVector> genphotons;
+
+
+  // std::cout<<" ------------- event ------------ "<<std::endl;
+  if( !iEvent.isRealData() ) {
+    edm::Handle<reco::GenParticleCollection> genParticles;
+    iEvent.getByLabel(inputTag, genParticles);
+
+    if( genParticles.isValid() ) {
+      edm::LogInfo("RootTupleMakerV2_GenParticlesInfo") << "Total # GenParticles: " << genParticles->size();
+
+
+      // Get status 1 photons
+      for( reco::GenParticleCollection::const_iterator it = genParticles->begin(); it != genParticles->end(); ++it )
+      {
+
+                 // Only photons
+        if (abs(it->pdgId())!=22) continue;
+                 // Level - 1
+        if (abs(it->status())!=1) continue;
+
+        // continue; //sherpa
+
+        TLorentzVector _photon;
+        _photon.SetPtEtaPhiM(it->pt(), it->eta(), it->phi(),0.0);
+        genphotons.push_back(_photon);
+      }
+
+      // Get muons & electrons which come from the W (status 3)
+      for( reco::GenParticleCollection::const_iterator it = genParticles->begin(); it != genParticles->end(); ++it )
+      {
+        // Only muons from W
+        if (abs(it->pdgId())!=13) continue;
+
+        // Only electrons from W
+        if (abs(it->pdgId())!=11) continue;
+
+        // std::cout<<"Muon Pt/ID:  "<<it->pt()<<"  "<<it->pdgId()<<"  Status: "<<(it->status())<<"  MOTHER: "<<it->mother()->pdgId()<<std::endl;
+        if (abs(it->mother()->pdgId()) != 24) continue; //madgraph
+        // if (abs(it->status())!=3) continue; //sherpa
+
+        TLorentzVector _muonfromW;
+        TLorentzVector _electronfromW;
+    
+        _muonfromW.SetPtEtaPhiM(it->pt(), it->eta(), it->phi(),0.0);
+        _muonsfromW.push_back(_muonfromW);
+        _muonsfromW_ids.push_back(it->pdgId());
+   
+        _electronfromW.SetPtEtaPhiM(it->pt(), it->eta(), it->phi(),0.0);
+        _electronsfromW.push_back(_electronfromW);
+        _electronsfromW_ids.push_back(it->pdgId());
+
+
+ }
+
+      // Match status 1 muons to muons from W
+
+      for( unsigned int im = 0 ; im!=_muonsfromW.size(); ++im )
+      {
+        TLorentzVector _closestmatchingmuon;
+        float _closestdr = 9999999.99;
+        int _closestmatchingmuon_id;
+        for( reco::GenParticleCollection::const_iterator it = genParticles->begin(); it != genParticles->end(); ++it ) 
+        {
+          // Only status 1 muons
+          if (abs(it->pdgId())!=13) continue;
+          if (abs(it->status())!=1) continue; //madgraph
+          // if (abs(it->status())!=3) continue; //sherpa
+
+          TLorentzVector _status1muonfromW;
+
+          _status1muonfromW.SetPtEtaPhiM(it->pt(), it->eta(), it->phi(),0.0);
+
+          float _thisdr = _status1muonfromW.DeltaR(_muonsfromW[im]);
+          if (_thisdr < _closestdr)
+          {
+            _closestdr = _thisdr;
+            _closestmatchingmuon = _status1muonfromW;
+            _closestmatchingmuon_id = it->pdgId();
+          }
+        }
+
+        if (_closestdr < 0.3) 
+        {
+            _status1muonsfromW.push_back(_closestmatchingmuon);
+            _status1muonsfromW_ids.push_back(_closestmatchingmuon_id);
+        }
+      }
+
+
+      //Match status 1 electrons to electrons from W
+
+for( unsigned int ie = 0 ; ie!=_electronsfromW.size(); ++ie )
+      {
+        TLorentzVector _closestmatchingelectron;
+        float _closestdr = 9999999.99;
+        int _closestmatchingelectron_id;
+        for( reco::GenParticleCollection::const_iterator it = genParticles->begin(); it != genParticles->end(); ++it )
+        {
+          // Only status 1 electrons
+          if (abs(it->pdgId())!=11) continue;
+          if (abs(it->status())!=1) continue; //madgraph
+          // if (abs(it->status())!=3) continue; //sherpa
+
+          TLorentzVector _status1electronfromW;
+
+          _status1electronfromW.SetPtEtaPhiM(it->pt(), it->eta(), it->phi(),0.0);
+
+          float _thisdr = _status1electronfromW.DeltaR(_electronsfromW[ie]);
+          if (_thisdr < _closestdr)
+          {
+            _closestdr = _thisdr;
+            _closestmatchingelectron = _status1electronfromW;
+            _closestmatchingelectron_id = it->pdgId();
+          }
+        }
+
+        if (_closestdr < 0.3)
+        {
+            _status1electronsfromW.push_back(_closestmatchingelectron);
+            _status1electronsfromW_ids.push_back(_closestmatchingelectron_id);
+        }
+      }
+
+
+      for( unsigned int im = 0 ; im!=_status1muonsfromW.size(); ++im )
+      {
+        TLorentzVector _muon;
+        int _muon_id = _status1muonsfromW_ids[im];
+        _muon = _status1muonsfromW[im];
+        std::vector<TLorentzVector> matchedphotons;
+
+        // eta->push_back( _muon.Eta() );
+        // phi->push_back( _muon.Phi() );
+        // pt->push_back( _muon.Pt() );
+
+        // std::cout<<"  Status 1 Muon:"<<_muon.Pt()<<"  "<<_muon.Eta()<<"  "<<_muon.Phi()<<std::endl;
+
+        for (unsigned int ig = 0 ; ig!=genphotons.size(); ++ig)
+        {
+          if (fabs(_muon.DeltaR(genphotons[ig])) < 0.1)
+          {
+            matchedphotons.push_back(genphotons[ig]);
+            // std::cout<<"   * "<<_muon.DeltaR(genphotons[ig])<<std::endl;
+          }
+        }
+
+        for (unsigned int ig = 0 ; ig!=matchedphotons.size(); ++ig)
+        {
+          _muon = _muon+matchedphotons[ig];
+        }
+        // std::cout<<"   Dressed Muon:"<<_muon.Pt()<<"  "<<_muon.Eta()<<"  "<<_muon.Phi()<<std::endl;
+
+        genmuons.push_back(_muon);
+        int _newid = 0;
+        if (_muon_id>0)  _newid = (700+_muon_id);
+        if (_muon_id<0)  _newid = (-700+_muon_id);
+        pdgids.push_back(_newid);
+        // std::cout<<"  new ID: "<<_newid<<std::endl;
+        // std::cout<<_muon.Pt()<<"  "<<700+it->pdgId()<<std::endl;
+
+      }
+   
+for( unsigned int ie = 0 ; ie!=_status1electronsfromW.size(); ++ie )
+      {
+        TLorentzVector _electron;
+        int _electron_id = _status1electronsfromW_ids[ie];
+        _electron = _status1electronsfromW[ie];
+        std::vector<TLorentzVector> matchedphotons;
+
+        // std::cout<<"  Status 1 Muon:"<<_muon.Pt()<<"  "<<_muon.Eta()<<"  "<<_muon.Phi()<<std::endl;
+
+        for (unsigned int ig = 0 ; ig!=genphotons.size(); ++ig)
+        {
+          if (fabs(_electron.DeltaR(genphotons[ig])) < 0.1)
+          {
+            matchedphotons.push_back(genphotons[ig]);
+            // std::cout<<"   * "<<_muon.DeltaR(genphotons[ig])<<std::endl;
+          }
+        }
+
+        for (unsigned int ig = 0 ; ig!=matchedphotons.size(); ++ig)
+        {
+          _electron = _electron+matchedphotons[ig];
+        }
+        // std::cout<<"   Dressed Muon:"<<_muon.Pt()<<"  "<<_muon.Eta()<<"  "<<_muon.Phi()<<std::endl;
+
+        genelectrons.push_back(_electron);
+        int _newid = 0;
+        if (_electron_id>0)  _newid = (700+_electron_id);
+        if (_electron_id<0)  _newid = (-700+_electron_id);
+        pdgids.push_back(_newid);
+        // std::cout<<"  new ID: "<<_newid<<std::endl;
+        // std::cout<<_muon.Pt()<<"  "<<700+it->pdgId()<<std::endl;
+
+      }
+
+
+///////
+ } 
+    else 
+    {
+      edm::LogError("RootTupleMakerV2_GenParticlesError") << "Error! Can't get the product " << inputTag;
+    }
+
+
+  for (unsigned int imu = 0; imu!=genmuons.size(); ++imu)
+  {
+    eta->push_back( genmuons[imu].Eta() );
+    phi->push_back( genmuons[imu].Phi() );
+    pt->push_back( genmuons[imu].Pt() );
+    pdgId->push_back( pdgids[imu] );
+    motherIndex->push_back(799);
+    status->push_back(799);
+  }
+
+ for (unsigned int iee = 0; iee!=genelectrons.size(); ++iee)
+  {
+    eta->push_back( genelectrons[iee].Eta() );
+    phi->push_back( genelectrons[iee].Phi() );
+    pt->push_back( genelectrons[iee].Pt() );
+    pdgId->push_back( pdgids[iee] );
+    motherIndex->push_back(799);
+    status->push_back(799);
+  }
+
+
+
+
+ //-----------------------------------------------------------------
   if( !iEvent.isRealData() ) {
     edm::Handle<reco::GenParticleCollection> genParticles;
     iEvent.getByLabel(inputTag, genParticles);
@@ -67,217 +304,44 @@ produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
         if(eta->size() >= maxSize)
           break;
 
+        int abid = abs(it->pdgId());
+        bool _keep = false;
+
+        if ( ( abid >= 11 ) &&  (abid <= 18 ) ) _keep = true;
+        if (abid == 24) _keep = true;
+
+        if (_keep == false) continue;
+
         // fill in all the vectors
         eta->push_back( it->eta() );
         phi->push_back( it->phi() );
-        p->push_back( it->p() );
-        px->push_back( it->px() );
-        py->push_back( it->py() );
-        pz->push_back( it->pz() );
         pt->push_back( it->pt() );
-        energy->push_back( it->energy() );
         pdgId->push_back( it->pdgId() );
-        vx->push_back( it->vx() );
-        vy->push_back( it->vy() );
-        vz->push_back( it->vz() );
-        numDaught->push_back( it->numberOfDaughters() );
         status->push_back( it->status() );
-
-	// >>>>>>  if gen-particle is a tau, check decay mode and fill-in visible momentum parameters:
-	int getGenTauDecayMode_ = 0; double tauVisPt  = -999.0; double tauVisEta = -999.0; double tauVisPhi = -999.0;
-	if( abs(it->pdgId()) == 15 ){
-	  getGenTauDecayMode_ =  getGenTauDecayMode( & (*it) );
-	  if( getGenTauDecayMode_>0 ){//get visible momentum only if decay mode is determined
-	    std::vector<const reco::GenParticle*> TauDaughters;
-	    findDaughters( & (*it), TauDaughters, 1);
-	    LorentzVector tauVis   = getVisMomentum( TauDaughters, 1);
-	    tauVisPt = tauVis.pt(); tauVisEta = tauVis.eta(); tauVisPhi = tauVis.phi();
-	    // ------------------------------------------------------------------ DEBUG OUTPUT --------------------------------------------------------------//
-	    //LorentzVector tauInvis = getInvisMomentum( TauDaughters, 1);
-	    //std::cout<< "Tau DecayMode/NoOfDaughters: "<<getGenTauDecayMode_<<" / "<<TauDaughters.size()<<std::endl;
-	    //std::cout<< "          visiblePt/Eta/Phi: "<<tauVisPt<<" / "<<tauVisEta<<" / "<<tauVisPhi <<std::endl;
-	    //std::cout<< "        invisiblePt/Eta/Phi: "<<tauInvis.pt()<<" / "<<tauInvis.eta()<<" / "<<tauInvis.phi() <<std::endl;
-	    //std::cout<< "visible+invisiblePt/Eta/Phi: "<<(tauVis+tauInvis).pt()<<" / "<<(tauVis+tauInvis).eta()<<" / "<<(tauVis+tauInvis).phi() <<std::endl;
-	    //std::cout<< "              genPt/Eta/Phi: "<<it->pt()<<" / "<< it->eta()<<" / "<<it->phi()<<std::endl;
-	    // ------------------------------------------------------------------ ------------ --------------------------------------------------------------//
-	  }
-	}
-	taudecaymode -> push_back( (int)(getGenTauDecayMode_) );
-	tauvisiblept -> push_back( tauVisPt  );
-	tauvisibleeta-> push_back( tauVisEta );
-	tauvisiblephi-> push_back( tauVisPhi );
-	// <<<<<<
-
-	int idx = -1;
-        for( reco::GenParticleCollection::const_iterator mit = genParticles->begin(); mit != genParticles->end(); ++mit ) {
-          if( it->mother()==&(*mit) ) {
-	    idx = std::distance(genParticles->begin(),mit);
-	    break;
-          }
-        }
-        motherIndex->push_back( idx );
+        motherIndex->push_back( it->mother()->pdgId() );
       }
     } else {
       edm::LogError("RootTupleMakerV2_GenParticlesError") << "Error! Can't get the product " << inputTag;
     }
   }
 
+    
+  }
+  //-----------------------------------------------------------------
   // put vectors in the event
-  iEvent.put( eta,          prefix + "Eta"          + suffix );
-  iEvent.put( phi,          prefix + "Phi"          + suffix );
-  iEvent.put( p,            prefix + "P"            + suffix );
-  iEvent.put( px,           prefix + "Px"           + suffix );
-  iEvent.put( py,           prefix + "Py"           + suffix );
-  iEvent.put( pz,           prefix + "Pz"           + suffix );
-  iEvent.put( pt,           prefix + "Pt"           + suffix );
-  iEvent.put( energy,       prefix + "Energy"       + suffix );
-  iEvent.put( pdgId,        prefix + "PdgId"        + suffix );
-  iEvent.put( vx,           prefix + "VX"           + suffix );
-  iEvent.put( vy,           prefix + "VY"           + suffix );
-  iEvent.put( vz,           prefix + "VZ"           + suffix );
-  iEvent.put( numDaught,    prefix + "NumDaught"    + suffix );
-  iEvent.put( status,       prefix + "Status"       + suffix );
-  iEvent.put( motherIndex,  prefix + "MotherIndex"  + suffix );
-  iEvent.put( taudecaymode, prefix + "TauDecayMode" + suffix );
-  iEvent.put( tauvisiblept, prefix + "TauVisiblePt" + suffix );
-  iEvent.put( tauvisibleeta,prefix + "TauVisibleEta"+ suffix );
-  iEvent.put( tauvisiblephi,prefix + "TauVisiblePhi"+ suffix );
+  iEvent.put( eta, prefix + "Eta" + suffix );
+  iEvent.put( phi, prefix + "Phi" + suffix );
+  iEvent.put( p, prefix + "P" + suffix );
+  iEvent.put( px, prefix + "Px" + suffix );
+  iEvent.put( py, prefix + "Py" + suffix );
+  iEvent.put( pz, prefix + "Pz" + suffix );
+  iEvent.put( pt, prefix + "Pt" + suffix );
+  iEvent.put( energy, prefix + "Energy" + suffix );
+  iEvent.put( pdgId, prefix + "PdgId" + suffix );
+  iEvent.put( vx, prefix + "VX" + suffix );
+  iEvent.put( vy, prefix + "VY" + suffix );
+  iEvent.put( vz, prefix + "VZ" + suffix );
+  iEvent.put( numDaught, prefix + "NumDaught" + suffix );
+  iEvent.put( status, prefix + "Status" + suffix );
+  iEvent.put( motherIndex, prefix + "MotherIndex" + suffix );
 }
-
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------//
-// See: https://hypernews.cern.ch/HyperNews/CMS/get/tauid/301/1/1/1.html                                                                    //
-// getVisMomentum(), getInvisMomentum(), findDaughters(), isNeutrino(), countDecayProducts() and getGenTauDecayMode() are reproduced from:  //
-// http://cmssw.cvs.cern.ch/cgi-bin/cmssw.cgi/CMSSW/TauAnalysis/CandidateTools/src/candidateAuxFunctions.cc?revision=1.26&view=markup       //
-//------------------------------------------------------------------------------------------------------------------------------------------//
-
-reco::Candidate::LorentzVector RootTupleMakerV2_GenParticles::getVisMomentum(const std::vector<const reco::GenParticle*>& daughters, int status){
-  reco::Candidate::LorentzVector p4Vis(0,0,0,0);
-  for ( std::vector<const reco::GenParticle*>::const_iterator daughter = daughters.begin();
-	daughter != daughters.end(); ++daughter ) {
-    if ( (status == -1 || (*daughter)->status() == status) && !isNeutrino(*daughter) ) {
-      // ------ debug ------
-      //std::cout << "adding daughter: pdgId = " << (*daughter)->pdgId() << ", Pt = " << (*daughter)->pt() << ","
-      //  << " eta = " << (*daughter)->eta() << ", phi = " << (*daughter)->phi()*180./TMath::Pi() << std::endl;
-      // ------ ----- ------
-      p4Vis += (*daughter)->p4();
-    }
-  }
-  // ------ debug ------
-  //std::cout << "--> vis. Momentum: Pt = " << p4Vis.pt() << ", eta = " << p4Vis.eta() << ", phi = " << p4Vis.phi() << std::endl;
-  // ------ ----- ------
-  return p4Vis;
-}
-
-reco::Candidate::LorentzVector RootTupleMakerV2_GenParticles::getInvisMomentum(const std::vector<const reco::GenParticle*>& daughters, int status){
-  reco::Candidate::LorentzVector p4Invis(0,0,0,0);
-  for ( std::vector<const reco::GenParticle*>::const_iterator daughter = daughters.begin();
-	daughter != daughters.end(); ++daughter ) {
-    if ( (status == -1 || (*daughter)->status() == status) && isNeutrino(*daughter) ) {
-      p4Invis += (*daughter)->p4();
-    }
-  }
-  return p4Invis;
-}
-
-void RootTupleMakerV2_GenParticles::findDaughters(const reco::GenParticle* mother,  std::vector<const reco::GenParticle*>& daughters, int status){
-  unsigned numDaughters = mother->numberOfDaughters();
-  for ( unsigned iDaughter = 0; iDaughter < numDaughters; ++iDaughter ) {
-    const reco::GenParticle* daughter = mother->daughterRef(iDaughter).get();
-    if ( status == -1 || daughter->status() == status ) daughters.push_back(daughter);
-    findDaughters(daughter, daughters, status);
-  }
-}
-
-bool RootTupleMakerV2_GenParticles::isNeutrino(const reco::GenParticle* daughter){
-  return ( TMath::Abs(daughter->pdgId()) == 12 || TMath::Abs(daughter->pdgId()) == 14 || TMath::Abs(daughter->pdgId()) == 16 );
-}
-
-void RootTupleMakerV2_GenParticles::countDecayProducts(const reco::GenParticle* genParticle,
-						       int& numElectrons, int& numElecNeutrinos, int& numMuons, int& numMuNeutrinos, 
-						       int& numChargedHadrons, int& numPi0s, int& numOtherNeutralHadrons, int& numPhotons)
-{
-  int absPdgId = TMath::Abs(genParticle->pdgId());
-  int status   = genParticle->status();
-  int charge   = genParticle->charge();
-  
-  if      ( absPdgId == 111 ) ++numPi0s;
-  else if ( status   ==   1 ) {
-    if      ( absPdgId == 11 ) ++numElectrons;
-    else if ( absPdgId == 12 ) ++numElecNeutrinos;
-    else if ( absPdgId == 13 ) ++numMuons;
-    else if ( absPdgId == 14 ) ++numMuNeutrinos;
-    else if ( absPdgId == 15 ) { 
-      edm::LogError ("countDecayProducts")
-        << "Found tau lepton with status code 1 !!";
-      return; 
-    }
-    else if ( absPdgId == 16 ) return; // no need to count tau neutrinos
-    else if ( absPdgId == 22 ) ++numPhotons;
-    else if ( charge   !=  0 ) ++numChargedHadrons;
-    else                       ++numOtherNeutralHadrons;
-  } else {
-    unsigned numDaughters = genParticle->numberOfDaughters();
-    for ( unsigned iDaughter = 0; iDaughter < numDaughters; ++iDaughter ) {
-      const reco::GenParticle* daughter = genParticle->daughterRef(iDaughter).get();
-      
-      countDecayProducts(daughter, 
-			 numElectrons, numElecNeutrinos, numMuons, numMuNeutrinos,
-			 numChargedHadrons, numPi0s, numOtherNeutralHadrons, numPhotons);
-    }
-  }
-}
-
-int RootTupleMakerV2_GenParticles::getGenTauDecayMode(const reco::GenParticle* genParticle) 
-{
-  //--- determine generator level tau decay mode
-  //    NOTE: 
-  //        (1) function implements logic defined in PhysicsTools/JetMCUtils/src/JetMCTag::genTauDecayMode
-  //            for different type of argument 
-  //        (2) this implementation should be more robust to handle cases of tau --> tau + gamma radiation
-
-  int numElectrons           = 0;
-  int numElecNeutrinos       = 0;
-  int numMuons               = 0;
-  int numMuNeutrinos         = 0; 
-  int numChargedHadrons      = 0;
-  int numPi0s                = 0; 
-  int numOtherNeutralHadrons = 0;
-  int numPhotons             = 0;
-  
-  countDecayProducts(genParticle,
-		     numElectrons, numElecNeutrinos, numMuons, numMuNeutrinos,
-		     numChargedHadrons, numPi0s, numOtherNeutralHadrons, numPhotons);
-  
-  if      ( numElectrons == 1 && numElecNeutrinos == 1 ) return 1;//std::string("electron");
-  else if ( numMuons     == 1 && numMuNeutrinos   == 1 ) return 2;//std::string("muon");
-  
-  switch ( numChargedHadrons ) {
-  case 1 : 
-    if ( numOtherNeutralHadrons != 0 ) return 11;//std::string("oneProngOther");
-    switch ( numPi0s ) {
-    case 0:
-      return 3;//std::string("oneProng0Pi0");
-    case 1:
-      return 4;//std::string("oneProng1Pi0");
-    case 2:
-      return 5;//std::string("oneProng2Pi0");
-    default:
-      return 6;//std::string("oneProngOther");
-    }
-  case 3 : 
-    if ( numOtherNeutralHadrons != 0 ) return 12;//std::string("threeProngOther");
-    switch ( numPi0s ) {
-    case 0:
-      return 7;//std::string("threeProng0Pi0");
-    case 1:
-      return 8;//std::string("threeProng1Pi0");
-    default:
-      return 9;//std::string("threeProngOther");
-    }
-  default:
-    return 13;//std::string("rare");
-  }
-}
-

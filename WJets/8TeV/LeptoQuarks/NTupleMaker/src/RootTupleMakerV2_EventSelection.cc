@@ -165,14 +165,14 @@ produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
     edm::LogInfo("RootTupleMakerV2_EventSelectionInfo") << "Total # Tracks: " << tracks->size();
 
     int numhighpurity = 0;
-    double fraction = 1.;
+    float fraction = 1.;
     reco::TrackBase::TrackQuality trackQuality = reco::TrackBase::qualityByName("highPurity");
 
     if( tracks->size() > numTracks ){
       for( reco::TrackCollection::const_iterator it=tracks->begin(); it!=tracks->end(); ++it ) {
         if( it->quality(trackQuality) ) numhighpurity++;
       }
-      fraction = (double)numhighpurity/(double)tracks->size();
+      fraction = (float)numhighpurity/(float)tracks->size();
       if( fraction < hpTrackThreshold ) *isbeamscraping.get() = true;
     }
   } else {
@@ -208,12 +208,12 @@ produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
   edm::Handle<edm::View<reco::Jet> > jets;
   iEvent.getByLabel(trackingFilterJetInputTag, jets);
   
-  double ht = 0;
+  float ht = 0;
   for (edm::View<reco::Jet>::const_iterator j = jets->begin(); j != jets->end(); ++j) {
     ht += j->pt();
   }
 
-  double sumpt = 0;
+  float sumpt = 0;
   if (primaryVertices->size() > 0) {
     const reco::Vertex * vtx = &((*primaryVertices)[0]);
     for (std::vector<reco::Track>::const_iterator tr = tracks->begin(); tr != tracks->end(); ++tr) {
